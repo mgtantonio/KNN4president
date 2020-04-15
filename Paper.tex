@@ -55,11 +55,14 @@ KNN, MARS, LSTM, Regresion, paper, I+D+i.
 
 \section{Introducción}
 
-\IEEEPARstart{S}{i} queremos predecir la potencia generada por una planta de energía renovable necesitamos conocer las condiciones meteorológicas en los próximos días. Los datos sólo suelen estar disponibles en las estaciones meteorológicas, y éstas pueden encontrarse lejos de la planta. 
+\IEEEPARstart{S}{i} queremos predecir la potencia generada por una planta de energía renovable necesitamos conocer las condiciones meteorológicas en los próximos días. Esta información sólo suele recopilarse en las estaciones meteorológicas, y éstas pueden encontrarse lejos de la planta. 
 
-Como solución a este problema planteamos el uso de cuatro técnicas de \emph{machine learning}: LSTM, MARS, Regresión Lineal y de KNN, que compararemos para descubrir cúal presenta mejores resultados.
+Como solución a este problema planteamos el uso de cuatro técnicas de \emph{machine learning}: Regresión Lineal, Regresión por K-vecinos (KNN), MARS y redes LSTM, que compararemos para descubrir cúal presenta mejores resultados.
 
-El problema en concreto se centra en  predecir la potencia de una turbina eólica situada en la provincia de Yalova, Turquía ( X:668478 Y:4494833 UTM ED 50, 6 degree). Para el entrenamiento de los algoritmos utilizaremos dos bases de datos. Una con la relación entre la potencia generada por la turbina y las características del viento (velocidad y dirección) en su ubicación, y otra con los datos meteorológicos en la capital de Yalova, situada a 15 kilómetros de la turbina.
+% Da la sensación de que planteamos la solución antes que el problema, ¿no?
+El problema en concreto se centra en  predecir la potencia de una turbina eólica situada en la provincia de Yalova, Turquía ( X:668478 Y:4494833 UTM ED 50, 6 degree), cuya estación meteorológica más cercana se encuentra en la capital, a 15 kilómetros de las turbinas.
+Para el entrenamiento de los algoritmos utilizaremos dos bases de datos. Una con la relación entre la potencia generada por la turbina y las características del viento (velocidad y dirección) en su ubicación, y otra con los datos meteorológicos de la estación.
+
 Estado del arte en cuanto a:
  \begin{itemize}
 \item Predicción meteorológica con machine learning
