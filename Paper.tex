@@ -21,11 +21,7 @@
 
 \title{Comparación de técnicas basadas en datos para la predicción de potencia en una turbina a partir de datos meteorológicos de una estación cercana}
 
-
 \author{Diego Lera, Antonio Martínez-Gandía}% <-this % stops a space
-
-
-
 
 \markboth{Journal of \LaTeX\ Class Files,~Vol.~14, No.~8, August~2015}%
 {Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for IEEE Journals}
@@ -54,17 +50,21 @@ KNN, MARS, LSTM, Regresion, paper, I+D+i.
 
 
 \section{Introducción}
+\IEEEPARstart{S}{i} queremos predecir la potencia generada por una planta de energía renovable necesitamos conocer las condiciones meteorológicas en los próximos días. Esta información sólo suele recopilarse en las estaciones meteorológicas, y éstas pueden encontrarse lejos de la planta. 
 
-\IEEEPARstart{S}{i} queremos predecir la potencia generada por una planta de energía renovable necesitamos conocer las condiciones meteorológicas en los próximos días. Los datos sólo suelen estar disponibles en las estaciones meteorológicas, y éstas pueden encontrarse lejos de la planta. 
+Como solución a este problema planteamos el uso de cuatro técnicas de \emph{machine learning}: Regresión Lineal, Regresión por K-vecinos (KNN), MARS y redes LSTM, que compararemos para descubrir cúal presenta mejores resultados.
 
-Como solución a este problema planteamos el uso de cuatro técnicas de \emph{machine learning}: LSTM, MARS, Regresión Lineal y de KNN, que compararemos para descubrir cúal presenta mejores resultados.
+% Da la sensación de que planteamos la solución antes que el problema, ¿no?
+El problema en concreto se centra en  predecir la potencia de una turbina eólica situada en la provincia de Yalova, Turquía ( X:668478 Y:4494833 UTM ED 50, 6 degree), cuya estación meteorológica más cercana se encuentra en la capital, a 15 kilómetros de las turbinas.
+Para el entrenamiento de los algoritmos utilizaremos dos bases de datos. Una con la relación entre la potencia generada por la turbina y las características del viento (velocidad y dirección) en su ubicación, y otra con los datos meteorológicos de la estación.
 
-El problema en concreto se centra en  predecir la potencia de una turbina eólica situada en la provincia de Yalova, Turquía ( X:668478 Y:4494833 UTM ED 50, 6 degree). Para el entrenamiento de los algoritmos utilizaremos dos bases de datos. Una con la relación entre la potencia generada por la turbina y las características del viento (velocidad y dirección) en su ubicación, y otra con los datos meteorológicos en la capital de Yalova, situada a 15 kilómetros de la turbina.
 Estado del arte en cuanto a:
  \begin{itemize}
-\item Predicción meteorológica con machine learning:
+\item Predicción meteorológica con machine learning
 Existen múltiples estudios destinados a la predicción meteorológica con técnicas de \emph{machine learning}, concretando para nuestro problema, el artículo de Xingjian Shi, Zhourong Chen, Hao Wang y Dit-Yan Yeung  para la predicción de precipitaciones usando redes LSTM\cite{NIPS2015_5955} arroja buenos resultados con una correlación de hasta un 0.908. Un estudio de la predicción de la irradiancia de un año entero realizado por Xiangyun Qing y Yugang Niu muestra mejoras respecto a otra red convolucional como BPNN \cite{QING2018461}
+\item Predicción de potencia con machine learning
 
+\item Combinado de potencia y meteorología
 
 \item Explicar un poco cada método
 				
@@ -120,6 +120,7 @@ El error cuadrático medio (MSE) obtenido con cada método se representan en la 
 
 \begin{table}[h]
 \centering
+\caption{Resultados}\label{t:res}
 \begin{tabular}{|l|c|c|}
 \hline
 & Predicción de viento (MSE) & Predicción de potencia (MSE)\\ \hline
@@ -128,7 +129,6 @@ KNN & 9.6739 & 9223 \\ \hline
 MARS & 11.59 & 10840 \\ \hline
 LSTM & 17.62 & 163500 \\ \hline
 \end{tabular}
-\caption{Resultados}\label{t:res}
 \end{table}
 
 Presentar resultados de las configuraciones de cada método.
@@ -192,6 +192,9 @@ Presentar resultados de las configuraciones de cada método.
 \section{Discusión}
 \section{Conclusión}
 
+
+\section{Conclusión}
+The conclusion goes here.
 
 
 
