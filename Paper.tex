@@ -73,6 +73,7 @@ A continuación, se explican brevemente las bases de cada una de las técnicas q
 \label{eqn:Reg}
  Y = a_1X_1 + a_2X_2+\ldots + a_nX_n
 \end{equation}
+
     \item Regresión KNN: Se trata de un método de ajuste no paramétrico. Permite aproximar funciones no lineales y muy variantes \cite{James2013}. Dado un conjunto de datos de entrenamiento, se calcula la salida de un nuevo dato como la media de las salidas de los K valores más cercanos (vecinos) en el conjunto de entrenamiento.
     \item MARS: Se trata de un procedimiento adaptativo de regresión. Basado en unas funciones básicas llamadas \emph{splines}, que siguen las siguientes ecuaciones: 
     \begin{align*} 
@@ -81,6 +82,7 @@ A continuación, se explican brevemente las bases de cada una de las técnicas q
     \end{align*}
     El método consiste en encontrar una combinación de estos splines que aproxime mejor el comportamiento de los datos de entrada para generar un modelo que nos permita hacer una predicción. Segun Friedman \cite{JHFRIEDMAN1991} el método consigue mejores resultados que el KNN en problemas con altas dimensiones.
     \item LSTM: Son redes neuronales recurrentes (RNN), se pueden aproximar como una cadena de redes neuronales en la que cada una pasa un mensaje a su sucesora. Son muy utilizadas para tratar datos en forma de secuencia como reconocimiento de habla o de imágenes. Ladiferencia existente entre redes LSTM y otras redes RNN, es la capacidad de solucionar el problema del desvane{}cimiento de gradiente mediante celdad pasa-no pasa al realizar el \emph{back propagation}. 
+
 \end{itemize}
 
 
@@ -94,6 +96,7 @@ Para afrontar el problema lo dividimos en dos partes. En primer lugar, nos centr
 Los datos han de estar tomados en los mismos instantes de tiempo. El \emph{dataset} de la potencia de la turbina nos ofrece los datos tomados cada diez minutos, comenzando el 01/01/2018 y terminando el 31/12/2018.  Por otro lado, la estación meteorológica nos ofrece un histórico de los datos del mismo año con una periodicidad de 3 horas, por lo que, para la predicción de viento, debemos eliminar los datos no coincidentes.  
 
 Para realizar una limpieza de los datos de la turbina, se realiza una eliminación de los datos que correspondan a: paros en la turbina ($P=0$) y momentos en los que la potencia teórica y real difieren en exceso ($P_{teorica}>P_{real}+500$).
+
 
 Obtención de los modelos:
 
