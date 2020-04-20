@@ -1,5 +1,6 @@
 \documentclass[journal]{IEEEtran}
 
+\usepackage{amsmath}
 \usepackage{cite}
 
 % *** GRAPHICS RELATED PACKAGES ***
@@ -58,18 +59,24 @@ Como solución a este problema planteamos el uso de cuatro técnicas de \emph{ma
 El problema en concreto se centra en  predecir la potencia de una turbina eólica situada en la provincia de Yalova, Turquía ( X:668478 Y:4494833 UTM ED 50, 6 degree), cuya estación meteorológica más cercana se encuentra en la capital, a 15 kilómetros de las turbinas.
 Para el entrenamiento de los algoritmos utilizaremos dos bases de datos. Una con la relación entre la potencia generada por la turbina y las características del viento (velocidad y dirección) en su ubicación, y otra con los datos meteorológicos de la estación.
 
-Estado del arte en cuanto a:
- \begin{itemize}
-\item Predicción meteorológica con machine learning
-Existen múltiples estudios destinados a la predicción meteorológica con técnicas de \emph{machine learning}, concretando para nuestro problema, el artículo de Xingjian Shi, Zhourong Chen, Hao Wang y Dit-Yan Yeung  para la predicción de precipitaciones usando redes LSTM\cite{NIPS2015_5955} arroja buenos resultados con una correlación de hasta un 0.908. Un estudio de la predicción de la irradiancia de un año entero realizado por Xiangyun Qing y Yugang Niu muestra mejoras respecto a otra red convolucional como BPNN \cite{QING2018461}
-\item Predicción de potencia con machine learning
 
-\item Combinado de potencia y meteorología
+Ante el problema de la predicción meteorológica existen dos enfoques principales: el uso de modelos numéricos con ecuaciones extraídas de la física y modelos estadísticos, principalmente utilizando técnicas de \emph{machine learninrg}. \cite{FOLEY20121} En general, los métodos numéricos consiguen buenos resultados calculando medias mensuales o anuales de variables macroscópicas como la temperatura o presión, mientras que los estadísticos consiguen buenas predicciones a corto plazo, día por día u hora por hora. \cite{FOLEY20121} \cite{GIEBEL2003}.
+Existen múltiples estudios destinados a la predicción meteorológica con técnicas de \emph{machine learning}, concretando para nuestro problema, el artículo de Xingjian Shi, Zhourong Chen, Hao Wang y Dit-Yan Yeung  para la predicción de precipitaciones usando redes LSTM\cite{NIPS2015_5955}, que arroja buenos resultados con una correlación de hasta un 0.908. Un estudio de la predicción de la irradiancia de un año entero realizado por Xiangyun Qing y Yugang Niu muestra mejoras respecto a otra red convolucional como BPNN \cite{QING2018461}.
 
-\item Explicar un poco cada método
-				
+Por ser el método más común de aprendizaje automático utilizaremos también técnicas de regresión, tanto lineal, como por K-vecinos como por splines (MARS). El método por K-vecinos ha presentado muy buenos resultados en el campo de la predicción meteorológica por su robustez en distribuciones irregulares \cite{HUANG201789}. Las técnicas de regresión con splines multivariantes adaptativos (MARS) también han sido escogidos en distintos experimentos relaccionados con la predicción de variables ambientales a corto plazo por su robustez, al no depender de presuposiciones acerca del comportamiento y su capacidad para aproximar modelos no lineales \cite{KRZEMIEN2019777} \cite{PA_LEWIS1991_864}.
 
 
+A continuación, se explican brevemente las bases de cada una de las técnicas que realizamos en este artículo:
+\begin{itemize}
+    \item Regresión Lineal:
+    \item Regresión KNN: Se trata de un método de ajuste no paramétrico. Permite aproximar funciones no lineales y muy variantes \cite{James2013}. Dado un conjunto de datos de entrenamiento, se calcula la salida de un nuevo dato como la media de las salidas de los K valores más cercanos (vecinos) en el conjunto de entrenamiento.
+    \item MARS: Se trata de un procedimiento adaptativo de regresión. Basado en unas funciones básicas llamadas \emph{splines}, que siguen las siguientes ecuaciones: 
+    \begin{align*} 
+        max(0,x-c) \\
+        max(0,c-x)
+    \end{align*}
+    El método consiste en encontrar una combinación de estos splines que aproxime mejor el comportamiento de los datos de entrada para generar un modelo que nos permita hacer una predicción. Segun Friedman \cite{JHFRIEDMAN1991} el método consigue mejores resultados que el KNN en problemas con altas dimensiones.
+    \item LSTM:
 \end{itemize}
 
 
@@ -118,7 +125,7 @@ El error cuadrático medio (MSE) obtenido con cada método se representan en la 
 
 
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \caption{Resultados}\label{t:res}
 \begin{tabular}{|l|c|c|}
