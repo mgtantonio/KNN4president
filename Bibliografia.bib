@@ -20,7 +20,7 @@ doi = "https://doi.org/10.1016/j.energy.2018.01.177",
 url = "http://www.sciencedirect.com/science/article/pii/S0360544218302056",
 author = "Xiangyun Qing and Yugang Niu",
 keywords = "Neural networks, Solar irradiance prediction, Structured output prediction, Weather forecasting",
-abstract = "Prediction of solar irradiance is essential for minimizing energy costs and providing high power quality in electrical power grids with distributed solar photovoltaic generations. However, for residential and small commercial users deploying on-site photovoltaic generations, the historical irradiance data can not be obtained directly because of expensive solar irradiance meters. Thanks to increasingly improved weather forecasting service provided by local meteorological organizations, weather forecasting data such as temperature, dew point, humidity, visibility, wind speed and descriptive weather summary, are becoming readily available through the Internet, while the irradiance forecasting data are often unavailable. This paper proposes a novel solar prediction scheme for hourly day-ahead solar irradiance prediction by using the weather forecasting data. This study formulates the prediction problem as a structured output prediction problem jointly predicting multiple outputs simultaneously. The proposed prediction model is trained by using long short-term memory (LSTM) networks taking into account the dependence between consecutive hours of the same day. We compare persistence algorithm, linear least square regression and multilayered feedforward neural networks using backpropagation algorithm (BPNN) for solar irradiance prediction. The experimental results on a dataset collected in island of Santiago, Cape Verde, demonstrate that the proposed algorithm outperforms these competitive algorithms for single output prediction. The proposed algorithm is %18.34 more accurate than BPNN in terms of root mean square error (RMSE) by using about 2 years training data to predict half-year testing data. Moreover, compared with BPNN, the proposed algorithm also shows less overfitting and better generalization capability. For a case using 10 years of historical data to predict 1 year of irradiance data, the prediction RMSE using the proposed LSTM algorithm decreases by 42.9% against BPNN."
+abstract = "Prediction of solar irradiance is essential for minimizing energy costs and providing high power quality in electrical power grids with distributed solar photovoltaic generations. However, for residential and small commercial users deploying on-site photovoltaic generations, the historical irradiance data can not be obtained directly because of expensive solar irradiance meters. Thanks to increasingly improved weather forecasting service provided by local meteorological organizations, weather forecasting data such as temperature, dew point, humidity, visibility, wind speed and descriptive weather summary, are becoming readily available through the Internet, while the irradiance forecasting data are often unavailable. This paper proposes a novel solar prediction scheme for hourly day-ahead solar irradiance prediction by using the weather forecasting data. This study formulates the prediction problem as a structured output prediction problem jointly predicting multiple outputs simultaneously. The proposed prediction model is trained by using long short-term memory (LSTM) networks taking into account the dependence between consecutive hours of the same day. We compare persistence algorithm, linear least square regression and multilayered feedforward neural networks using backpropagation algorithm (BPNN) for solar irradiance prediction. The experimental results on a dataset collected in island of Santiago, Cape Verde, demonstrate that the proposed algorithm outperforms these competitive algorithms for single output prediction. The proposed algorithm is \%18.34 more accurate than BPNN in terms of root mean square error (RMSE) by using about 2 years training data to predict half-year testing data. Moreover, compared with BPNN, the proposed algorithm also shows less overfitting and better generalization capability. For a case using 10 years of historical data to predict 1 year of irradiance data, the prediction RMSE using the proposed LSTM algorithm decreases by 42.9\% against BPNN."
 }
 
 @article{FOLEY20121,
@@ -129,4 +129,16 @@ abstract = { Abstract Multivariate Adaptive Regression Splines (MARS) is a new m
  year = {1991}
 }
 
+@misc{ARESLAB2016,
+title	= {ARESLab Adaptive Regression Splines toolbox for Matlab/Octave},
+author	= {Gints Jekabsons},
+year	= {2016},
+URL	= {http://www.cs.rtu.lv/jekabsons/Files/ARESLab.pdf}
+}
 
+@misc{45500,
+title	= {Understanding LSTM Networks},
+author	= {Christopher Olah},
+year	= {2015},
+URL	= {http://colah.github.io/posts/2015-08-Understanding-LSTMs/}
+}
