@@ -99,7 +99,7 @@ Para realizar una limpieza de los datos de la turbina, se realiza una eliminaci�
 
 
 Obtención de los modelos:
-
+% ¿QUEDARÁ BIEN PONERLOS POR PUNTOS LOS CUATRO MODELOS O SERÁ MUY REPETITIVO?
 Para obtener el grado del polinomio indicado en la ecuación \ref{eqn:Reg} se realiza un proceso iterativo en el que en cada paso se aumenta en un grado el orden del polinomio y se calcula el MSE escogiéndose el grado en el que se presente un mínimo. 
 
 La preparación de los datos la realizamos también con un proceso iterativo en el que, introducimos los datos en la red LSTM divididos por días consecutivos. Empezamos dividiendo los datos día a día y, en cada paso, aumentamos en uno el día hasta acabar  introduciéndolos todos juntos. En cada paso de la iteración  se calcula el MSE, y nos quedamos con aquel que presente el menos valor.
