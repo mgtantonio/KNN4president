@@ -3,7 +3,12 @@
 \usepackage{amsmath}
 \usepackage{cite}
 \usepackage{hyperref}
-
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{array}
+\usepackage{url}
+% \usepackage[spanish]{babel}
+\def\UrlBreaks{\do\/\do-}
 % *** GRAPHICS RELATED PACKAGES ***
 %
 \ifCLASSINFOpdf
@@ -25,7 +30,7 @@
 
 \author{Diego Lera, Antonio Martínez-Gandía}% <-this % stops a space
 
-\markboth{Journal of \LaTeX\ Class Files,~Vol.~14, No.~8, August~2015}%
+\markboth{IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS, VOL. 32, NO. 5, APRIL 2020}%
 {Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for IEEE Journals}
 
 \maketitle
@@ -33,14 +38,18 @@
 % As a general rule, do not put math, special symbols or citations
 % in the abstract or keywords.
 \begin{abstract}
-Se han realizado muchos estudios para la predicción tanto meteorológica, como de potencia en fuentes de energía renovable. En este documento se ha querido combinar ambas mediante la aplicación cuatro técnicas de \emph{machine learning} (regresión lineal, KNN, MARS y redes LSTM) para la predicción de la potencia generada por una turbina y  del viento en la ubicación de la turbina partiendo de los datos de una estación meteorológica situada a 15 km. Se presentan los resultados de cada una y los métodos seguido para obtenerlos.
+Se han realizado muchos estudios para la predicción tanto meteorológica, como de potencia en fuentes de energía renovable. En estos se hace una clara distinción entre métodos numéricos, que se basan en crear modelos utilizando ecuaciones de la física, y métodos estadísitos o de aprendizaje. En este documento pretendemos comparar la eficacia de cuatro técnicas de \emph{machine learning}, tanto en predicción de potencia como en predicción de viento.
+Los métodos utilizados son: regresión lineal, KNN, MARS y redes LSTM. Con estos cuatro métodos tenemos algoritmos de muy distinta complejidad utilizados en dos aplicaciones también muy distintas.
+
+Para unir los dos casos de uso se plantea la predicción de la potencia generada por una turbina y del viento en su ubicación, partiendo de los datos de una estación meteorológica situada a 15 km, en la provincia de Yalova, Turquía.
+
+La distancia entre la turbina y la estación, junto con el ruido y las imperfecciones de los \emph{datasets} utilizados, presentan grandes problemas para los modelos. Sin embargo, los resultados obtenidos con MARS y KNN podrían ser válidos para realizar una aplicación encadenada entre las dos predicciones, para conseguir valores de potencia en la turbina a partir de la predicción meteorológica del día siguiente.
 \end{abstract}
 
 % Note that keywords are not normally used for peerreview papers.
 \begin{IEEEkeywords}
-KNN, MARS, LSTM, Regresion, I+D+i machine learning.
+KNN, MARS, LSTM, Regresion, I+D+i, machine learning, wind forecasting.
 \end{IEEEkeywords}
-
 
 
 
@@ -56,7 +65,6 @@ KNN, MARS, LSTM, Regresion, I+D+i machine learning.
 
 Como solución a este problema planteamos el uso de cuatro técnicas de \emph{machine learning}: Regresión Lineal, Regresión por K-vecinos (KNN), MARS y redes LSTM, que compararemos para descubrir cúal presenta mejores resultados.
 
-% Da la sensación de que planteamos la solución antes que el problema, ¿no?
 El problema en concreto se centra en  predecir la potencia de una turbina eólica situada en la provincia de Yalova, Turquía ( X:668478 Y:4494833 UTM ED 50, 6 degree), cuya estación meteorológica más cercana se encuentra en la capital, a 15 kilómetros de las turbinas.
 Para el entrenamiento de los algoritmos utilizaremos dos bases de datos. Una con la relación entre la potencia generada por la turbina y las características del viento (velocidad y dirección) en su ubicación, y otra con los datos meteorológicos de la estación.
 
@@ -77,28 +85,26 @@ A continuación, se explican brevemente las bases de cada una de las técnicas q
 
     \item Regresión KNN: A diferencia del anterior, este es un método no paramétrico. Permite aproximar funciones no lineales y muy variantes \cite{James2013}. Dado un conjunto de datos de entrenamiento, se calcula la salida de un nuevo dato como la media de las salidas de los K valores más cercanos (vecinos) en el conjunto de entrenamiento.
     \item MARS: Se trata de un procedimiento adaptativo de regresión. Basado en unas funciones básicas llamadas \emph{splines}, que siguen las siguientes ecuaciones: 
-    \begin{align*} 
-        max(0,x-c) \\
-        max(0,c-x)
-    \end{align*}
+    \begin{figure}[!ht]
+        \centering
+        \includegraphics[width=6cm, height=2.5cm]{Splines.png}
+        \captionsetup{justification=centering,singlelinecheck=false}
+        \caption{Ejemplo de spline lineal y spline cúbico}
+        \label{fig:splines}
+    \end{figure}
     El método consiste en encontrar una combinación de estos splines que aproxime mejor el comportamiento de los datos de entrada para generar un modelo que nos permita hacer una predicción. Segun Friedman, \cite{JHFRIEDMAN1991} el método consigue mejores resultados que el KNN en problemas con altas dimensiones.
     \item LSTM: Son redes neuronales recurrentes (RNN). Se pueden aproximar como una cadena de redes neuronales en la que cada una pasa un mensaje a su sucesora. Son muy utilizadas para tratar datos secuenciales de mayor tamaño que las RNN tradicionales, muy utilizadas en reconocimiento de habla o de imágenes. La capacidad para tratar grandes cadenas de datos se consigue gracias a la eliminación del problema de desvanecimiento de gradiente al ajustar los parámetros de las neuronas durante el \emph{backpropagation} \cite{45500}.
 
-
 \end{itemize}
-
-
- 
-% (should never be an issue)
 
 
 \section{Métodos}
 Para afrontar el problema lo dividimos en dos partes. En primer lugar, nos centramos en la predicción de la potencia con los datos del viento en la ubicación de la turbina. En segundo lugar, calcularemos el viento en dicha ubicación a partir de los datos de la estación meteorológica de Yalova. 
 
-Los datos han de estar tomados en los mismos instantes de tiempo. El \emph{dataset} de la potencia de la turbina nos ofrece los datos tomados cada diez minutos, comenzando el 01/01/2018 y terminando el 31/12/2018.  Por otro lado, la estación meteorológica nos ofrece un histórico de los datos del mismo año con una periodicidad de 3 horas, por lo que, para la predicción de viento, debemos eliminar los datos no coincidentes.  
+Los datos han de estar tomados en los mismos instantes de tiempo. El \emph{dataset} de la potencia de la turbina nos ofrece los datos tomados cada diez minutos, comenzando el 01/01/2018 y terminando el 31/12/2018.  Por otro lado, la estación meteo-rológica nos ofrece un histórico de los datos del mismo año con una periodicidad de 3 horas, por lo que, para la predicción de viento, debemos eliminar los datos no coincidentes.  
 
 
-Los \emph{datasets} utilizados se han extraido de las páginas kaggle.com y worldweatheronline.com respectivamente. Se pueden encontrar adaptados en el siguiente repositorio: \url{https://github.com/DiegoLera/KNN4president}  %Cambia el nombre por dios
+Los \emph{datasets} utilizados se han extraido de las páginas kaggle.com y worldweatheronline.com respectivamente. Se pueden encontrar adaptados en el siguiente repositorio: \url{https://github.com/DiegoLera/TurbinaYalova}
 
 Todos los métodos explicados en este documento se han llevado a cabo con MATLAB, en la versión R2019a.
 
@@ -124,15 +130,7 @@ Obtención de los modelos:
     Para la creación de la red se utiliza la \emph{toolbox} de Matlab para la creación de redes neuronales. Se especifícan las características de la red mediante los parámetros contenidos en el \emph{array layer}.
 
 \end{itemize}
-% ¿QUEDARÁ BIEN PONERLOS POR PUNTOS LOS CUATRO MODELOS O SERÁ MUY REPETITIVO?
 
-
-
-
-Preparación de los datos:
-Explicar los procedimientos, como sacamos los óptimos y los datos.
-Dividerand
-Preparadatos LSTM, lapso.
 % An example of a floating figure using the graphicx package.
 % Note that \label must occur AFTER (or within) \caption.
 % For figures, \caption should occur after the \includegraphics.
@@ -181,12 +179,13 @@ La iteración para el conjunto de datos de la LSTM explicado anteriormente, pres
 % \end{tabular}
 % \end{table}
 
-\begin{table}[ht]
-\centering
+\begin{table}[h]
+% \centering
 \caption{Resultados en RMSE}\label{t:resRMSE}
-\begin{tabular}{|l|c|c|}
+\begin{tabular}{|>{\centering}p{0.125\textwidth}| >{\centering}p{0.125\textwidth} | >{\centering\arraybackslash}p{0.125\textwidth}|}
+
 \hline
-& Predicción de viento (RMSE) & Predicción de potencia (RMSE)\\ \hline
+&Predicción de viento (RMSE) & Predicción de potencia (RMSE)\\ \hline
 Regresión lineal & 8.18 & 113.19 \\ \hline
 KNN & 3.18 & 93.8 \\ \hline
 MARS & 3.30 & 101.07 \\ \hline
@@ -251,7 +250,7 @@ LSTM & 4.20 & 404.35 \\ \hline
 %\end{table}
 
 \section{Discusión}
-Para cuantificar los resultados necesitaríamos otros experimentos realizados en condiciones similares, de los que no disponemos. Este estudio queda como referencia para posibles ampliaciones y comparación con otros trabajos.
+Para cuantificar los resultados necesitaríamos comparar con otros experimentos realizados en condiciones similares, de los que no disponemos. Este estudio queda como referencia para posibles ampliaciones y comparación con otros trabajos.
 
 Por otro lado, tras observar los resultados, se aprecia que la ruptura de la continuidad en los \emph{datasets} ha influido en la técnica LSTM, en la que la secuencialidad es una parte fundamental para su entrenamiento. 
 
@@ -293,9 +292,10 @@ Las técnicas estadísticas dependen mucho de la calidad de los datos con los qu
 
 % use section* for acknowledgment
 
+\medskip
 
-
-
+\bibliographystyle{IEEEtran}
+\bibliography{Bibliografia}
 
 
 % Can use something like this to put references on a page
@@ -362,9 +362,7 @@ Las técnicas estadísticas dependen mucho de la calidad de los datos con los qu
 % is flush with the other column.
 %\enlargethispage{-5in}
 
-\bibliography{Bibliografia}
 
-\bibliographystyle{IEEEtran}
 
 % that's all folks
 \end{document}
