@@ -84,6 +84,7 @@ A continuación, se explican brevemente las bases de cada una de las técnicas q
     El método consiste en encontrar una combinación de estos splines que aproxime mejor el comportamiento de los datos de entrada para generar un modelo que nos permita hacer una predicción. Segun Friedman, \cite{JHFRIEDMAN1991} el método consigue mejores resultados que el KNN en problemas con altas dimensiones.
     \item LSTM: Son redes neuronales recurrentes (RNN). Se pueden aproximar como una cadena de redes neuronales en la que cada una pasa un mensaje a su sucesora. Son muy utilizadas para tratar datos secuenciales de mayor tamaño que las RNN tradicionales, muy utilizadas en reconocimiento de habla o de imágenes. La capacidad para tratar grandes cadenas de datos se consigue gracias a la eliminación del problema de desvanecimiento de gradiente al ajustar los parámetros de las neuronas durante el \emph{backpropagation} \cite{45500}.
 
+
 \end{itemize}
 
 
@@ -108,7 +109,6 @@ Obtención de los modelos:
 
 \begin{itemize}
     \item Regresión Lineal: Para obtener el grado del polinomio indicado en la ecuación \ref{eqn:Reg} se realiza un proceso iterativo en el que en cada paso se aumenta un grado el orden del polinomio y se calcula el MSE, escogiéndose el grado en el que se presente un mínimo. 
-
     \item Regresión KNN: Se calculan los valores de salida para los datos de validación utilizando como entradas los datos de entrenamiento. Realizamos el proceso con valores de K de 1 a 100 y seleccionamos el que menor valor MSE proporcione para los datos de validación.
     \item MARS: Utilizamos la toolbox de MATLAB llamada ARESLab, que integra todas las funciones explicadas por Friedman en su artículo sobre el método \cite{JHFRIEDMAN1991}. En primer lugar, definimos los parámetros del proceso con la función \emph{aresparams2}, tal como se indica en la documentación de la toolbox \cite{ARESLAB2016}. Definimos:
     \begin{itemize}
@@ -120,8 +120,9 @@ Obtención de los modelos:
     En el modelo de la predicción de viento aumentamos el número de funciones máximo y de iteraciones, ya que se utilizan muchas más entradas y el algoritmo requiere más flexibilidad.
     Para construir el modelo se utiliza la función \emph{aresbuild}, a la que aportamos los datos de entrenamiento y validación juntos, ya que internamente ya se realiza la fase de validación.
     Para calcular el error del modelo utilizamos la función \emph{arestest} con los datos de test.
-    \item LSTM: Dada la importancia de la secuencialidad de los datos, no se pueden seleccionar particiones aleatorias para el entrenamiento de la red.  Para la preparación de los datos de entrenamiento hemos realizado un proceso iterativo en el que se realizan particiones de los datos manteniendo la secuencialidad. Comenzamos dividiendo los datos de entrenamiento creando un conjunto cada día y calculando el error de la red. En cada paso se aumenta en un día los conjuntos de datos, es decir, en el segundo paso se dividen los conjuntos cada dos días, y así sucesivamente hasta llegar a la última iteración, en la que se crea un conjunto único con todos los datos en un conjunto.
+    \item LSTM: Dada la importancia de la secuencialidad de los datos, no se pueden seleccionar particiones aleatorias para el entrenamiento de la red.  Para la preparación de los datos de entrenamiento hemos realizado un proceso iterativo en el que se realizan particiones manteniendo la secuencialidad. Comenzamos dividiendo los datos de entrenamiento creando un conjunto cada día y calculando el error de la red. En cada paso se aumenta en un día los conjuntos de datos, es decir, en el segundo paso se dividen los conjuntos cada dos días, y así sucesivamente hasta llegar a la última iteración, en la que se crea un conjunto único con todos los datos en un conjunto.
     Para la creación de la red se utiliza la \emph{toolbox} de Matlab para la creación de redes neuronales. Se especifícan las características de la red mediante los parámetros contenidos en el \emph{array layer}.
+
 \end{itemize}
 % ¿QUEDARÁ BIEN PONERLOS POR PUNTOS LOS CUATRO MODELOS O SERÁ MUY REPETITIVO?
 
@@ -192,8 +193,6 @@ MARS & 3.30 & 101.07 \\ \hline
 LSTM & 4.20 & 404.35 \\ \hline
 \end{tabular}
 \end{table}
-
-
 
 % An example of a double column floating figure using two subfigures.
 % (The subfig.sty package must be loaded for this to work.)
