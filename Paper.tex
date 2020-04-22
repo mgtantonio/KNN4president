@@ -59,7 +59,7 @@ KNN, MARS, LSTM, Regresion, I+D+i, machine learning, wind forecasting.
 \end{IEEEkeywords}
 
 
-
+\end{abstract}
 
 
 
@@ -140,7 +140,7 @@ A continuación, se detalla el procedimiento a seguir para cada método:
     Para construir el modelo se utiliza la función \emph{aresbuild}, a la que aportamos los datos de entrenamiento y validación juntos, ya que internamente ya se realiza la fase de validación.
     Para calcular el error del modelo utilizamos la función \emph{arestest} con los datos de test.
     \item LSTM: Son redes neuronales recurrentes (RNN). Se pueden aproximar como una cadena de redes neuronales en la que cada una pasa un mensaje a su sucesora. Son muy utilizadas para tratar datos secuenciales de mayor tamaño que las RNN tradicionales, muy utilizadas en reconocimiento de habla o de imágenes. La capacidad para tratar grandes cadenas de datos se consigue gracias a la eliminación del problema de desvanecimiento de gradiente al ajustar los parámetros de las neuronas durante el \emph{backpropagation} \cite{45500}.
-     Dada la importancia de la secuencialidad de los datos, no se pueden seleccionar particiones aleatorias para el entrenamiento de la red.  Para la preparación de los datos de entrenamiento hemos realizado un proceso iterativo en el que se realizan particiones manteniendo la secuencialidad. Comenzamos dividiendo los datos de entrenamiento creando un conjunto cada día y calculando el error de la red. En cada paso se aumenta en un día los conjuntos de datos, es decir, en el segundo paso se dividen los conjuntos cada dos días, y así sucesivamente hasta llegar a la última iteración, en la que se crea un conjunto único con todos los datos en un conjunto.
+     Dada la importancia de la secuencialidad de los datos, no se pueden seleccionar particiones aleatorias para el entrenamiento de la red.  Para la preparación de los datos de entrenamiento hemos reali-zado un proceso iterativo en el que se realizan particiones manteniendo la secuencialidad. Comenzamos dividiendo los datos de entrenamiento creando un conjunto cada día y calculando el error de la red. En cada paso se aumenta en un día los conjuntos de datos, es decir, en el segundo paso se dividen los conjuntos cada dos días, y así sucesivamente hasta llegar a la última iteración, en la que se crea un conjunto único con todos los datos en un conjunto.
     Para la creación de la red se utiliza la \emph{toolbox} de Matlab para la creación de redes neuronales. Se especifícan las características de la red mediante los parámetros contenidos en el \emph{array layer}.
 
 \end{itemize}
@@ -260,7 +260,7 @@ LSTM & 4.20 & 404.35 \\ \hline
 %\end{table}
 
 \section{Discusión}
-Para cuantificar  la eficacia de los modelos necesitaríamos comparar con otros estudios realizados en condiciones similares, que, hasta el conocimiento de los autores, no se han llevado a cabo. Este estudio queda como referencia para posibles ampliaciones y comparación con otros trabajos.
+Para cuantificar  la eficacia de los modelos necesitaríamos comparar con otros estudios realizados en condiciones simi-lares, que, hasta el conocimiento de los autores, no se han llevado a cabo. Este estudio queda como referencia para posibles ampliaciones y comparación con otros trabajos.
 
 Por otro lado, tras observar los resultados, se aprecia que la ruptura de la continuidad en los \emph{datasets} ha influido en la técnica LSTM, en la que la secuencialidad es una parte fundamental para su entrenamiento. 
 
